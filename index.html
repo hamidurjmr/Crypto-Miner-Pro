@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Miner Pro - Advanced Cryptocurrency Mining Platform</title>
+    <link rel="icon" href="https://i.ibb.co/rLKP95f/images-3.jpg" type="image/jpg">
+    <style>
+        :root {
+            --primary: #0a0a15;
+            --secondary: #121225;
+            --accent: #1a1a3a;
+            --highlight: #e94560;
+            --text: #ffffff;
+            --success: #00d26a;
+            --warning: #ff9f43;
+            --bitcoin: #f7931a;
+            --ethereum: #627eea;
+            --ton: #0088cc;
+            --bnb: #f3ba2f;
+            --litecoin: #bfbbbb;
+            --dogecoin: #c2a633;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: rgba(18, 18, 37, 0.95);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--accent);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--highlight);
+        }
+        
+        .logo h1 {
+            font-size: 26px;
+            background: linear-gradient(135deg, var(--highlight) 0%, #ff6b9d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(233, 69, 96, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--highlight);
+            background: rgba(233, 69, 96, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a img {
+            width: 22px;
+            height: 22px;
+            border-radius: 5px;
+            filter: brightness(0.9);
+        }
+        
+        .page-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        .auth-section {
+            background: rgba(18, 18, 37, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 50px 0;
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--highlight), #ff6b9d, var(--highlight));
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        
+        .auth-form input {
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            font-size: 16px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .auth-form input:focus {
+            outline: none;
+            border-color: var(--highlight);
+            box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .auth-form button {
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, var(--highlight) 0%, #ff2e4f 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-form button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .auth-form button:hover::before {
+            left: 100%;
+        }
+        
+        .auth-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(233, 69, 96, 0.6);
+        }
+        
+        .dashboard {
+            margin-top: 30px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(18, 18, 37, 0.6);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .dashboard-header img {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 2px solid var(--highlight);
+        }
+        
+        .dashboard-header h2 {
+            font-size: 32px;
+            background: linear-gradient(135deg, var(--highlight) 0%, #ff6b9d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .mining-controls {
+            background: rgba(18, 18, 37, 0.6);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mining-controls::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--bitcoin), var(--ethereum), var(--ton), var(--bnb), var(--litecoin), var(--dogecoin));
+        }
+        
+        .mining-status {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .status-indicator {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #ff4757;
+            box-shadow: 0 0 15px #ff4757;
+        }
+        
+        .status-indicator.active {
+            background: var(--success);
+            box-shadow: 0 0 20px var(--success);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 20px var(--success); }
+            50% { transform: scale(1.1); box-shadow: 0 0 30px var(--success); }
+            100% { transform: scale(1); box-shadow: 0 0 20px var(--success); }
+        }
+        
+        .mining-btn {
+            padding: 15px 30px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, var(--highlight) 0%, #ff2e4f 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mining-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .mining-btn:hover::before {
+            left: 100%;
+        }
+        
+        .mining-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(233, 69, 96, 0.6);
+        }
+        
+        .mining-btn.stop {
+            background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
+        }
+        
+        .coins-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .coin-card {
+            background: rgba(18, 18, 37, 0.6);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .coin-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+        
+        .coin-card.btc::before { background: var(--bitcoin); }
+        .coin-card.eth::before { background: var(--ethereum); }
+        .coin-card.ton::before { background: var(--ton); }
+        .coin-card.bnb::before { background: var(--bnb); }
+        .coin-card.ltc::before { background: var(--litecoin); }
+        .coin-card.doge::before { background: var(--dogecoin); }
+        
+        .coin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .coin-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .coin-icon img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+        
+        .coin-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        
+        .coin-amount {
+            font-size: 26px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .coin-card.btc .coin-amount { color: var(--bitcoin); }
+        .coin-card.eth .coin-amount { color: var(--ethereum); }
+        .coin-card.ton .coin-amount { color: var(--ton); }
+        .coin-card.bnb .coin-amount { color: var(--bnb); }
+        .coin-card.ltc .coin-amount { color: var(--litecoin); }
+        .coin-card.doge .coin-amount { color: var(--dogecoin); }
+        
+        .coin-hashrate {
+            font-size: 14px;
+            opacity: 0.8;
+            text-align: center;
+        }
+        
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(18, 18, 37, 0.6);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--highlight), #ff6b9d);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            color: var(--highlight);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+        
+        .withdraw-section {
+            background: rgba(18, 18, 37, 0.6);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .withdraw-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--success), #00ff88);
+        }
+        
+        .withdraw-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .withdraw-header img {
+            width: 35px;
+            height: 35px;
+        }
+        
+        .withdraw-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            max-width: 500px;
+        }
+        
+        .withdraw-form select, .withdraw-form input {
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            font-size: 16px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .withdraw-form select:focus, .withdraw-form input:focus {
+            outline: none;
+            border-color: var(--highlight);
+            box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .withdraw-form button {
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, var(--success) 0%, #00c968 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(0, 210, 106, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .withdraw-form button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .withdraw-form button:hover::before {
+            left: 100%;
+        }
+        
+        .withdraw-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 210, 106, 0.6);
+        }
+        
+        .withdrawal-history {
+            background: rgba(18, 18, 37, 0.6);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .withdrawal-history::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--warning), #ffb74d);
+        }
+        
+        .withdrawal-history h3 {
+            color: var(--highlight);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+        }
+        
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .history-table th {
+            text-align: left;
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--highlight);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .history-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 14px;
+        }
+        
+        .status-processing {
+            color: var(--warning);
+            font-weight: 600;
+        }
+        
+        .status-completed {
+            color: var(--success);
+            font-weight: 600;
+        }
+        
+        .no-history {
+            text-align: center;
+            padding: 40px;
+            opacity: 0.6;
+            font-style: italic;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            padding: 18px 25px;
+            border-radius: 12px;
+            background: var(--success);
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateX(150%);
+            transition: transform 0.4s;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.error {
+            background: #ff4757;
+        }
+        
+        .notification img {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 21, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s, visibility 0.5s;
+            backdrop-filter: blur(20px);
+        }
+        
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(233, 69, 96, 0.3);
+            border-top: 4px solid var(--highlight);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 25px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 18px;
+            color: var(--text);
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .mining-start-animation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, var(--highlight) 0%, var(--accent) 100%);
+            color: white;
+            padding: 35px 55px;
+            border-radius: 20px;
+            font-size: 26px;
+            font-weight: 700;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.5s;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .mining-start-animation.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        
+        .mining-start-animation img {
+            width: 45px;
+            height: 45px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            opacity: 0.7;
+            background: rgba(18, 18, 37, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 16px 16px 0 0;
+        }
+        
+        /* Buy Key Button Styles */
+        .buy-key-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--success) 0%, #00c968 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(0, 210, 106, 0.4);
+            margin: 10px 0;
+        }
+        
+        .buy-key-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 210, 106, 0.6);
+        }
+        
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 30px;
+            background: linear-gradient(135deg, #0088cc 0%, #006699 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(0, 136, 204, 0.4);
+        }
+        
+        .telegram-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 136, 204, 0.6);
+        }
+        
+        /* Bitcoin Miner Pro Style Payment Section */
+        .payment-section {
+            background: rgba(18, 18, 37, 0.6);
+            padding: 25px;
+            border-radius: 16px;
+            margin: 30px 0;
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .payment-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--highlight), #ff6b9d, var(--highlight));
+        }
+        
+        .payment-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--highlight);
+            text-align: center;
+        }
+        
+        .payment-amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--highlight);
+            text-align: center;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+        }
+        
+        .crypto-scroll {
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 20px 0;
+            padding-right: 10px;
+        }
+        
+        .crypto-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .crypto-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .crypto-scroll::-webkit-scrollbar-thumb {
+            background: var(--highlight);
+            border-radius: 10px;
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .payment-method {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .payment-method:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+        
+        .payment-method.selected {
+            border-color: var(--highlight);
+            background: rgba(233, 69, 96, 0.1);
+        }
+        
+        .crypto-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .crypto-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+        
+        .crypto-amount {
+            font-size: 10px;
+            color: var(--highlight);
+        }
+        
+        .address-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .address {
+            font-size: 13px;
+            word-break: break-all;
+            font-family: monospace;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .amount-info {
+            font-size: 14px;
+            color: var(--highlight);
+            margin-top: 10px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .steps {
+            margin-top: 25px;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            width: 24px;
+            height: 24px;
+            background: var(--highlight);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 12px;
+            flex-shrink: 0;
+            font-size: 12px;
+        }
+        
+        .step-content {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .highlight {
+            color: var(--highlight);
+            font-weight: 600;
+        }
+        
+        .contact-btn {
+            background: linear-gradient(135deg, #0088cc 0%, #006699 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(0, 136, 204, 0.4);
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 136, 204, 0.6);
+        }
+        
+        .copy-btn {
+            background: rgba(233, 69, 96, 0.2);
+            border: none;
+            color: var(--highlight);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(233, 69, 96, 0.3);
+        }
+        
+        .hidden-key {
+            letter-spacing: 2px;
+            background: rgba(233, 69, 96, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            font-family: monospace;
+            text-align: center;
+            margin: 15px 0;
+            color: var(--highlight);
+            font-weight: 500;
+            border: 1px dashed var(--highlight);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-content {
+            background: var(--secondary);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid var(--highlight);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .coins-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .stats-section {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+            
+            .history-table {
+                min-width: 700px;
+            }
+            
+            .payment-methods {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .content-section {
+                padding: 25px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .auth-section {
+                padding: 25px;
+            }
+            
+            .dashboard-header {
+                padding: 20px;
+            }
+            
+            .coins-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .history-table {
+                min-width: 600px;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="notification" id="notification">
+        <img src="https://i.ibb.co/qf9BrYC/images-3.png" alt="Success Icon">
+        <span id="notificationText">Access Granted</span>
+    </div>
+    
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text" id="loadingText">Initializing Secure Connection...</div>
+    </div>
+    
+    <div class="mining-start-animation" id="miningStartAnimation">
+        <img src="https://i.ibb.co/qf9BrYC/images-3.png" alt="Success Icon">
+        <span>Mining Session Activated</span>
+    </div>
+    
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://i.ibb.co/rLKP95f/images-3.jpg" alt="Crypto Miner Pro">
+                    <h1>Crypto Miner Pro</h1>
+                </div>
+                <div class="nav-links">
+                    <a class="nav-link active" data-target="home">
+                        <img src="https://i.ibb.co/WvkdMh1Y/images.png" alt="Dashboard">
+                        Dashboard
+                    </a>
+                    <a class="nav-link" data-target="features">
+                        <img src="https://i.ibb.co/RKYXvMj/images-2.png" alt="Features">
+                        Technology
+                    </a>
+                    <a class="nav-link" data-target="about">
+                        <img src="https://i.ibb.co/B57Bmwg0/images-5.jpg" alt="About">
+                        About
+                    </a>
+                    <a class="nav-link" data-target="contact">
+                        <img src="https://i.ibb.co/BMksgb7/images-1.png" alt="Contact">
+                        Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Home Section -->
+        <section id="home" class="page-section active">
+            <div class="auth-section" id="authSection">
+                <h2 style="text-align: center; margin-bottom: 25px; font-size: 28px;">Secure Mining Portal</h2>
+                <p style="text-align: center; margin-bottom: 30px; opacity: 0.8;">Enter your license key to access the advanced mining platform</p>
+                <form class="auth-form" id="authForm">
+                    <input type="text" id="accessKey" placeholder="🔑 Enter your activation key" required>
+                    <div class="hidden-key">XXXXX-7XXX-HXXX</div>
+                    <button type="submit" id="verifyBtn">
+                        <span id="verifyBtnText">Verify Key</span>
+                    </button>
+                </form>
+                
+                <!-- Bitcoin Miner Pro Style Payment Section -->
+                <div class="payment-section" id="paymentSection">
+                    <div class="payment-header">
+                        <div class="payment-title">Premium Activation</div>
+                    </div>
+                    <div class="payment-amount">$40</div>
+                    
+                    <div class="crypto-scroll">
+                        <div class="payment-methods" id="paymentMethods">
+                            <!-- Payment methods will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="address-container" id="addressContainer" style="display: none;">
+                        <div class="address" id="paymentAddress">
+                            Address will appear here after selection
+                        </div>
+                        <div class="amount-info" id="amountInfo">Send exact amount shown above</div>
+                        <button class="copy-btn" onclick="copyToClipboard()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            Copy Address
+                        </button>
+                    </div>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">Send <span class="highlight">$40 worth</span> of cryptocurrency</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">Take screenshot of payment</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">Contact <span class="highlight">@CryptoMinerApp10</span> on Telegram</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">Receive your activation key</div>
+                        </div>
+                    </div>
+                    
+                    <button class="contact-btn" onclick="window.open('https://t.me/CryptoMinerApp10', '_blank')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12S17.52 2 12 2zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                        </svg>
+                        Contact on Telegram
+                    </button>
+                </div>
+                
+                <p style="text-align: center; margin-top: 20px; font-size: 14px; opacity: 0.7;">
+                    Advanced multi-algorithm mining platform for 2025-26
+                </p>
+            </div>
+            
+            <div class="dashboard" id="dashboard" style="display: none;">
+                <!-- Dashboard content remains the same -->
+                <div class="dashboard-header">
+                    <img src="https://i.ibb.co/bMgVmNR1/images-1.jpg" alt="Mining Dashboard">
+                    <h2>Advanced Mining Control Panel</h2>
+                </div>
+                
+                <div class="mining-controls">
+                    <div class="mining-status">
+                        <div class="status-indicator" id="statusIndicator"></div>
+                        <h2 id="miningStatusText" style="font-size: 24px;">Mining System: OFFLINE</h2>
+                    </div>
+                    <button id="toggleMining" class="mining-btn">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        ACTIVATE MINING
+                    </button>
+                </div>
+                
+                <h2 style="margin-bottom: 20px; font-size: 24px;">Cryptocurrency Mining Performance</h2>
+                <div class="coins-grid">
+                    <div class="coin-card btc">
+                        <div class="coin-icon">
+                            <img src="https://i.ibb.co/zWtXXHfS/images-6.jpg" alt="Bitcoin">
+                        </div>
+                        <div class="coin-name">Bitcoin (BTC)</div>
+                        <div class="coin-amount" id="btcAmount">0.00000000</div>
+                        <div class="coin-hashrate">Hash Power: <span id="btcHashrate">0 TH/s</span></div>
+                    </div>
+                    <div class="coin-card eth">
+                        <div class="coin-icon">
+                            <img src="https://i.ibb.co/cX6Y05KB/ethereum-3d-icon-png-download-3364022.png" alt="Ethereum">
+                        </div>
+                        <div class="coin-name">Ethereum (ETH)</div>
+                        <div class="coin-amount" id="ethAmount">0.00000000</div>
+                        <div class="coin-hashrate">Hash Power: <span id="ethHashrate">0 MH/s</span></div>
+                    </div>
+                    <div class="coin-card ton">
+                        <div class="coin-icon">
+                            <img src="https://i.ibb.co/Xkt0csjp/images-8.jpg" alt="Toncoin">
+                        </div>
+                        <div class="coin-name">Toncoin (TON)</div>
+                        <div class="coin-amount" id="tonAmount">0.00000000</div>
+                        <div class="coin-hashrate">Hash Power: <span id="tonHashrate">0 MH/s</span></div>
+                    </div>
+                    <div class="coin-card bnb">
+                        <div class="coin-icon">
+                            <img src="https://i.ibb.co/zyyLHdW/bnb-3d-icon-png-download-8263875.png" alt="BNB">
+                        </div>
+                        <div class="coin-name">Binance Coin (BNB)</div>
+                        <div class="coin-amount" id="bnbAmount">0.00000000</div>
+                        <div class="coin-hashrate">Hash Power: <span id="bnbHashrate">0 MH/s</span></div>
+                    </div>
+                    <div class="coin-card ltc">
+                        <div class="coin-icon">
+                            <img src="https://i.ibb.co/xKnrBQdC/images-7.jpg" alt="Litecoin">
+                        </div>
+                        <div class="coin-name">Litecoin (LTC)</div>
+                        <div class="coin-amount" id="ltcAmount">0.00000000</div>
+                        <div class="coin-hashrate">Hash Power: <span id="ltcHashrate">0 GH/s</span></div>
+                    </div>
+                    <div class="coin-card doge">
+                        <div class="coin-icon">
+                            <img src="https://i.ibb.co/ym3QPsSs/images-9.jpg" alt="Dogecoin">
+                        </div>
+                        <div class="coin-name">Dogecoin (DOGE)</div>
+                        <div class="coin-amount" id="dogeAmount">0.00000000</div>
+                        <div class="coin-hashrate">Hash Power: <span id="dogeHashrate">0 MH/s</span></div>
+                    </div>
+                </div>
+                
+                <h2 style="margin-bottom: 20px; font-size: 24px;">Mining Performance Metrics</h2>
+                <div class="stats-section">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalMined">0.00000000</div>
+                        <div class="stat-label">Total Assets Mined</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalHashrate">0 PH/s</div>
+                        <div class="stat-label">Total Hash Power</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="miningTime">00:00:00</div>
+                        <div class="stat-label">Active Mining Duration</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="activeMiners">1</div>
+                        <div class="stat-label">Active Mining Rigs</div>
+                    </div>
+                </div>
+                
+                <h2 style="margin-bottom: 20px; font-size: 24px;">Asset Withdrawal Portal</h2>
+                <div class="withdraw-section">
+                    <div class="withdraw-header">
+                        <img src="https://i.ibb.co/rWtZJLb/purchase-order-3d-icon-png-download-8654716.png" alt="Withdraw">
+                        <h3 style="font-size: 22px;">Secure Asset Transfer</h3>
+                    </div>
+                    
+                    <!-- Withdrawal Fee Information -->
+                    <div style="background: rgba(233, 69, 96, 0.1); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid rgba(233, 69, 96, 0.3);">
+                        <h4 style="color: var(--highlight); margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                            </svg>
+                            Withdrawal Fee: $40 (Payable before withdrawal)
+                        </h4>
+                        <p style="font-size: 14px; margin-bottom: 15px;">
+                            Pay fee via BTC or USDT-BEP20 only. After payment, enter Transaction ID below.
+                        </p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px;">
+                                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                    <span style="font-size: 20px;">₿</span>
+                                    <strong>Bitcoin (BTC)</strong>
+                                </div>
+                                <div style="font-size: 13px; margin-bottom: 10px;">Amount: <strong>0.00044 BTC</strong></div>
+                                <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; font-size: 11px; word-break: break-all; font-family: monospace;">
+                                    bc1qkrvuxrrjm9t96jdng86mhep29rvf4ezupepakx
+                                </div>
+                                <button onclick="copyAddress('bc1qkrvuxrrjm9t96jdng86mhep29rvf4ezupepakx', 'BTC')" style="width: 100%; margin-top: 10px; padding: 8px; background: rgba(233, 69, 96, 0.2); border: none; color: var(--highlight); border-radius: 6px; cursor: pointer; font-size: 12px;">
+                                    Copy BTC Address
+                                </button>
+                            </div>
+                            
+                            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px;">
+                                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                    <span style="font-size: 20px;">💲</span>
+                                    <strong>USDT (BEP20)</strong>
+                                </div>
+                                <div style="font-size: 13px; margin-bottom: 10px;">Amount: <strong>40 USDT</strong></div>
+                                <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; font-size: 11px; word-break: break-all; font-family: monospace;">
+                                    0x8Ed272B8003eC72F434929EB7E712dea2772A360
+                                </div>
+                                <button onclick="copyAddress('0x8Ed272B8003eC72F434929EB7E712dea2772A360', 'USDT')" style="width: 100%; margin-top: 10px; padding: 8px; background: rgba(233, 69, 96, 0.2); border: none; color: var(--highlight); border-radius: 6px; cursor: pointer; font-size: 12px;">
+                                    Copy USDT Address
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form class="withdraw-form" id="withdrawForm">
+                        <select id="withdrawCoin" onchange="updateMinAmount()">
+                            <option value="btc">Bitcoin (BTC) - Min: 0.00044 BTC</option>
+                            <option value="eth">Ethereum (ETH) - Min: 1 ETH</option>
+                            <option value="ton">Toncoin (TON) - Min: 20 TON</option>
+                            <option value="bnb">Binance Coin (BNB) - Min: 0.19 BNB</option>
+                            <option value="ltc">Litecoin (LTC) - Min: 0.1 LTC</option>
+                            <option value="doge">Dogecoin (DOGE) - Min: 900 DOGE</option>
+                        </select>
+                        <input type="text" id="withdrawAddress" placeholder="Destination Wallet Address" required>
+                        <input type="number" id="withdrawAmount" placeholder="Transfer Amount" step="0.00000001" min="0" required>
+                        <input type="text" id="transactionId" placeholder="Transaction ID (from fee payment)" required>
+                        <button type="submit">SUBMIT WITHDRAWAL</button>
+                    </form>
+                    
+                    <div id="paymentNotReceived" style="display: none; background: rgba(255, 71, 87, 0.1); padding: 15px; border-radius: 10px; margin-top: 20px; border: 1px solid rgba(255, 71, 87, 0.3);">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#ff4757">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                            </svg>
+                            <strong style="color: #ff4757;">Payment Not Received</strong>
+                        </div>
+                        <p style="font-size: 14px; margin-bottom: 10px;">
+                            If your withdrawal is not processed within 2-3 minutes, please contact us on Telegram with your Transaction ID.
+                        </p>
+                        <a href="https://t.me/CryptoMinerApp10" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: linear-gradient(135deg, #0088cc 0%, #006699 100%); color: white; text-decoration: none; border-radius: 8px; font-size: 14px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                            </svg>
+                            Contact Telegram Support
+                        </a>
+                    </div>
+                    
+                    <p style="margin-top: 20px; font-size: 14px; opacity: 0.7;">
+                        ⚡ Fast Processing: 2-3 minutes after fee payment verification<br>
+                        💰 $20 withdrawal fee required (BTC or USDT-BEP20 only)<br>
+                        🔐 Advanced blockchain security protocols enabled
+                    </p>
+                </div>
+                
+                <h2 style="margin-bottom: 20px; font-size: 24px;">Transaction Ledger</h2>
+                <div class="withdrawal-history">
+                    <h3>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                        </svg>
+                        Transaction History
+                    </h3>
+                    <div class="history-container" id="historyContainer">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Asset</th>
+                                    <th>Amount</th>
+                                    <th>Destination</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyBody">
+                                <!-- Transaction history will be populated here -->
+                            </tbody>
+                        </table>
+                        <div class="no-history" id="noHistory" style="display: none;">
+                            No transaction history available
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Section -->
+        <section id="features" class="page-section">
+            <div class="content-section">
+                <h2>Advanced Mining Technology</h2>
+                <p>Crypto Miner Pro utilizes cutting-edge technology to deliver maximum mining efficiency and profitability. Our platform combines the latest advancements in blockchain technology with proprietary optimization algorithms.</p>
+                
+                <h3>Core Technologies</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>Multi-Algorithm Support</h4>
+                        <p>Simultaneously mine multiple cryptocurrencies using different consensus algorithms including Proof of Work, Proof of Stake, and hybrid systems.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>AI-Powered Optimization</h4>
+                        <p>Our artificial intelligence system continuously analyzes market conditions and automatically adjusts mining strategies for maximum profitability.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Quantum-Resistant Security</h4>
+                        <p>Advanced cryptographic protocols ensure your mining operations and assets remain secure against future quantum computing threats.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Cloud Mining Infrastructure</h4>
+                        <p>Access enterprise-grade mining hardware through our global network of data centers without the need for physical equipment.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Real-Time Analytics</h4>
+                        <p>Comprehensive dashboard with real-time performance metrics, profitability calculations, and market trend analysis.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Energy-Efficient Protocols</h4>
+                        <p>Optimized algorithms that reduce energy consumption by up to 40% compared to traditional mining methods.</p>
+                    </div>
+                </div>
+                
+                <h3>Supported Cryptocurrencies</h3>
+                <p>Our platform supports mining for all major cryptocurrencies including Bitcoin, Ethereum, Litecoin, Dogecoin, and emerging altcoins. We continuously add support for new and promising blockchain projects.</p>
+                
+                <h3>Performance Features</h3>
+                <ul>
+                    <li>Hash rate optimization for each supported algorithm</li>
+                    <li>Automatic pool switching based on profitability</li>
+                    <li>Low latency connections to global mining pools</li>
+                    <li>Advanced cooling and maintenance systems</li>
+                    <li>24/7 monitoring and automated troubleshooting</li>
+                    <li>Regular software updates and feature enhancements</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="page-section">
+            <div class="content-section">
+                <h2>About Crypto Miner Pro</h2>
+                <p>Crypto Miner Pro is a leading cryptocurrency mining platform established in 2020 with the mission to make cryptocurrency mining accessible to everyone. Our team of blockchain experts, software engineers, and financial analysts work together to create the most efficient and user-friendly mining experience.</p>
+                
+                <h3>Our Mission</h3>
+                <p>To democratize cryptocurrency mining by providing enterprise-level mining capabilities to individual users through an intuitive, cloud-based platform that eliminates technical barriers and maximizes profitability.</p>
+                
+                <h3>Our Vision</h3>
+                <p>We envision a future where anyone can participate in blockchain networks and benefit from cryptocurrency mining, regardless of their technical expertise or financial resources.</p>
+                
+                <h3>Company Values</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>Transparency</h4>
+                        <p>We believe in complete transparency about our operations, fees, and performance metrics.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Innovation</h4>
+                        <p>Continuous research and development to stay at the forefront of mining technology.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Security</h4>
+                        <p>Enterprise-grade security measures to protect user assets and data.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Accessibility</h4>
+                        <p>Making advanced mining technology available to users of all experience levels.</p>
+                    </div>
+                </div>
+                
+                <h3>Our Team</h3>
+                <p>Our diverse team includes experts from blockchain development, financial technology, cybersecurity, and data center operations. With decades of combined experience in cryptocurrency and technology sectors, we're committed to delivering the best mining experience possible.</p>
+                
+                <h3>Infrastructure</h3>
+                <p>We operate state-of-the-art mining facilities across North America, Europe, and Asia, utilizing renewable energy sources where possible to minimize our environmental impact. Our data centers feature the latest ASIC miners, GPU farms, and custom mining rigs optimized for maximum efficiency.</p>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="contact" class="page-section">
+            <div class="content-section">
+                <h2>Customer Support</h2>
+                <p>We're committed to providing exceptional support to all our users. Whether you're experiencing technical issues, have questions about our services, or need assistance with your account, our support team is here to help.</p>
+                
+                <h3>Contact Methods</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h4>Telegram Support</h4>
+                        <p>24/7 instant messaging support</p>
+                        <a href="https://t.me/CryptoMinerApp10" class="telegram-btn" style="margin-top: 15px; display: inline-block;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.78 5.42-.9 6.8-.06.67-.36.89-.89.56-2.45-1.83-3.57-2.98-5.79-4.78-.51-.41-.87-.62-.84-.95.03-.32.46-.46.83-.34 3.14 1.3 5.01 2.45 7.61 3.76.44.22.78.11.9-.42l1.36-6.33c.16-.73-.27-1.04-.85-.82l-8.53 3.29c-.77.3-.76.73-.14.94l2.18.68 5.05-3.22c.31-.2.59-.09.36.11z"/>
+                            </svg>
+                            Message Us
+                        </a>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Email Support</h4>
+                        <p>Response within 24 hours</p>
+                        <p style="margin-top: 10px; color: var(--highlight);">support@cryptominerpro.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>Knowledge Base</h4>
+                        <p>Comprehensive guides and FAQs</p>
+                        <button class="buy-key-btn" style="margin-top: 15px; background: var(--warning);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                            </svg>
+                            View Guides
+                        </button>
+                    </div>
+                </div>
+                
+                <h3>Frequently Asked Questions</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>How do I start mining?</h4>
+                        <p>Simply purchase a license key and enter it in the dashboard to activate your mining account. No technical setup required.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>When can I withdraw my earnings?</h4>
+                        <p>You can withdraw your mined cryptocurrencies at any time. Minimum withdrawal amounts apply depending on the cryptocurrency.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Is there a mobile app?</h4>
+                        <p>Our platform is fully responsive and works on all mobile devices. No separate app installation is required.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>What are the fees?</h4>
+                        <p>We charge a 2% maintenance fee on all mining rewards. There are no hidden fees or additional charges.</p>
+                    </div>
+                </div>
+                
+                <h3>Technical Support</h3>
+                <p>For technical issues, please contact our support team with the following information:</p>
+                <ul>
+                    <li>Your license key</li>
+                    <li>Description of the issue</li>
+                    <li>Screenshots if applicable</li>
+                    <li>Browser and device information</li>
+                </ul>
+                
+                <p style="margin-top: 25px; text-align: center; opacity: 0.8;">
+                    We typically respond to all inquiries within 24 hours. For urgent issues, please use our Telegram support for immediate assistance.
+                </p>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Crypto Miner Pro &copy; 2025-2026 - Advanced Cryptocurrency Mining Platform</p>
+            <p>Need a license? <a href="https://t.me/CryptoMinerApp10" style="color: var(--highlight); text-decoration: none; font-weight: 600;">Contact on Telegram to Buy License Key</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const authSection = document.getElementById('authSection');
+        const dashboard = document.getElementById('dashboard');
+        const authForm = document.getElementById('authForm');
+        const accessKeyInput = document.getElementById('accessKey');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const miningStatusText = document.getElementById('miningStatusText');
+        const toggleMiningBtn = document.getElementById('toggleMining');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const loadingText = document.getElementById('loadingText');
+        const miningStartAnimation = document.getElementById('miningStartAnimation');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pageSections = document.querySelectorAll('.page-section');
+        const historyBody = document.getElementById('historyBody');
+        const noHistory = document.getElementById('noHistory');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const verifyBtnText = document.getElementById('verifyBtnText');
+        const paymentMethodsContainer = document.getElementById('paymentMethods');
+        const addressContainer = document.getElementById('addressContainer');
+        const paymentAddress = document.getElementById('paymentAddress');
+        const amountInfo = document.getElementById('amountInfo');
+        const paymentNotReceived = document.getElementById('paymentNotReceived');
+        
+        // Mining state
+        let isMining = false;
+        let miningInterval;
+        let secondsMined = 0;
+        let isVerified = false;
+        
+        // Payment state
+        let selectedPaymentMethod = null;
+        let currentAddress = '';
+        
+        // Withdrawal history
+        let withdrawalHistory = JSON.parse(localStorage.getItem('withdrawalHistory')) || [];
+        
+        // Fee payment addresses
+        const feeAddressBTC = 'bc1qkrvuxrrjm9t96jdng86mhep29rvf4ezupepakx';
+        const feeAmountBTC = '0.00044 BTC';
+        const feeAddressUSDT = '0x8Ed272B8003eC72F434929EB7E712dea2772A360';
+        const feeAmountUSDT = '40 USDT';
+        
+        // Payment method data
+        const paymentMethods = [
+            { 
+                id: 'btc', 
+                name: 'Bitcoin', 
+                icon: '₿', 
+                amount: '0.00044 BTC', 
+                address: 'bc1qkrvuxrrjm9t96jdng86mhep29rvf4ezupepakx',
+                displayAmount: 'Send exactly 0.00044 BTC ($40)'
+            },
+            { 
+                id: 'eth', 
+                name: 'Ethereum', 
+                icon: '⟠', 
+                amount: '0.01 ETH', 
+                address: '0x8Ed272B8003eC72F434929EB7E712dea2772A360',
+                displayAmount: 'Send exactly 0.01 ETH ($40)'
+            },
+            { 
+                id: 'usdt_bep20', 
+                name: 'USDT BEP20', 
+                icon: '💲', 
+                amount: '40 USDT', 
+                address: '0x8Ed272B8003eC72F434929EB7E712dea2772A360',
+                displayAmount: 'Send exactly 40 USDT ($40)'
+            },
+            { 
+                id: 'usdt_erc20', 
+                name: 'USDT ERC20', 
+                icon: '💲', 
+                amount: '40 USDT', 
+                address: '0x8Ed272B8003eC72F434929EB7E712dea2772A360',
+                displayAmount: 'Send exactly 40 USDT ($40)'
+            },
+            { 
+                id: 'usdt_polygon', 
+                name: 'USDT Polygon', 
+                icon: '💲', 
+                amount: '40 USDT', 
+                address: '0x8Ed272B8003eC72F434929EB7E712dea2772A360',
+                displayAmount: 'Send exactly 40 USDT ($40)'
+            },
+            { 
+                id: 'doge', 
+                name: 'Dogecoin', 
+                icon: 'Ð', 
+                amount: '200 DOGE', 
+                address: 'DBdHkdK9cSnTsbSU7fC3UsEScGk3Vh5MQj',
+                displayAmount: 'Send exactly 200 DOGE ($40)'
+            },
+            { 
+                id: 'sol', 
+                name: 'Solana', 
+                icon: '◎', 
+                amount: '0.22 SOL', 
+                address: 'BJRbjgLW13DwKkJvCTyXG9WTZoNVB4FQRsBKh4jN3TPH',
+                displayAmount: 'Send exactly 0.22 SOL ($40)'
+            },
+            { 
+                id: 'ton', 
+                name: 'Toncoin', 
+                icon: 'TON', 
+                amount: '20 TON', 
+                address: 'UQCAmLdC9CScLicYOBjLuRh-GZN9CGGej5D04Bv5wsFzygjP',
+                displayAmount: 'Send exactly 20 TON ($40)'
+            },
+            { 
+                id: 'bnb', 
+                name: 'BNB', 
+                icon: 'BNB', 
+                amount: '0.035 BNB', 
+                address: '0x8Ed272B8003eC72F434929EB7E712dea2772A360',
+                displayAmount: 'Send exactly 0.035 BNB ($40)'
+            },
+            { 
+                id: 'ltc', 
+                name: 'Litecoin', 
+                icon: 'Ł', 
+                amount: '0.35 LTC', 
+                address: 'LS8Cb6ve24tRaULwj9XfoYJDcRTbSbKr2s',
+                displayAmount: 'Send exactly 0.35 LTC ($40)'
+            },
+            { 
+                id: 'trx', 
+                name: 'TRON', 
+                icon: 'TRX', 
+                amount: '110 TRX', 
+                address: 'TNF2n1mc56nbXwHi1FXrXckXc74RWuYDux',
+                displayAmount: 'Send exactly 110 TRX ($40)'
+            },
+            { 
+                id: 'matic', 
+                name: 'Polygon', 
+                icon: 'MATIC', 
+                amount: '252 MATIC', 
+                address: '0x8Ed272B8003eC72F434929EB7E712dea2772A360',
+                displayAmount: 'Send exactly 252 MATIC ($40)'
+            }
+        ];
+        
+        // Coin data
+        const coins = {
+            btc: { amount: 0, hashrate: 0 },
+            eth: { amount: 0, hashrate: 0 },
+            ton: { amount: 0, hashrate: 0 },
+            bnb: { amount: 0, hashrate: 0 },
+            ltc: { amount: 0, hashrate: 0 },
+            doge: { amount: 0, hashrate: 0 }
+        };
+        
+        // Update minimum amounts based on selected coin
+        function updateMinAmount() {
+            const coin = document.getElementById('withdrawCoin').value;
+            const minAmounts = {
+                btc: 0.01,
+                eth: 1,
+                ton: 20,
+                bnb: 0.19,
+                ltc: 0.1,
+                doge: 900
+            };
+            
+            document.getElementById('withdrawAmount').min = minAmounts[coin];
+            document.getElementById('withdrawAmount').placeholder = `Transfer Amount (Min: ${minAmounts[coin]} ${coin.toUpperCase()})`;
+        }
+        
+        // Copy address function for fee payment
+        function copyAddress(address, type) {
+            navigator.clipboard.writeText(address)
+                .then(() => {
+                    showNotification(`${type} address copied to clipboard! Send exact amount.`);
+                })
+                .catch(err => {
+                    console.error('Failed to copy address: ', err);
+                    showNotification('Failed to copy address', true);
+                });
+        }
+        
+        // Initialize payment methods
+        function initializePaymentMethods() {
+            paymentMethodsContainer.innerHTML = '';
+            
+            paymentMethods.forEach(method => {
+                const methodElement = document.createElement('div');
+                methodElement.className = 'payment-method';
+                methodElement.setAttribute('data-method', method.id);
+                methodElement.innerHTML = `
+                    <div class="crypto-icon">${method.icon}</div>
+                    <div class="crypto-name">${method.name}</div>
+                    <div class="crypto-amount">${method.amount}</div>
+                `;
+                
+                methodElement.addEventListener('click', () => {
+                    selectPaymentMethod(method.id);
+                });
+                
+                paymentMethodsContainer.appendChild(methodElement);
+            });
+            
+            // Select first method by default
+            if (paymentMethods.length > 0) {
+                selectPaymentMethod(paymentMethods[0].id);
+            }
+        }
+        
+        // Select payment method
+        function selectPaymentMethod(methodId) {
+            // Remove selected class from all methods
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked method
+            const selectedElement = document.querySelector(`[data-method="${methodId}"]`);
+            selectedElement.classList.add('selected');
+            
+            // Set selected payment method
+            selectedPaymentMethod = methodId;
+            const method = paymentMethods.find(m => m.id === methodId);
+            
+            // Show address container
+            addressContainer.style.display = 'block';
+            
+            // Set payment address and info
+            paymentAddress.textContent = method.address;
+            amountInfo.textContent = method.displayAmount;
+            currentAddress = method.address;
+        }
+        
+        // Copy to clipboard function
+        function copyToClipboard() {
+            navigator.clipboard.writeText(currentAddress)
+                .then(() => {
+                    showNotification('Address copied to clipboard');
+                })
+                .catch(err => {
+                    console.error('Failed to copy address: ', err);
+                    showNotification('Failed to copy address', true);
+                });
+        }
+        
+        // Navigation functionality
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const target = this.getAttribute('data-target');
+                
+                // Update active nav link
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show target section
+                pageSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(target).classList.add('active');
+            });
+        });
+        
+        // Show notification
+        function showNotification(message, isError = false) {
+            notificationText.textContent = message;
+            notification.className = 'notification';
+            if (isError) {
+                notification.classList.add('error');
+                notification.querySelector('img').src = 'https://i.ibb.co/KMvJGRM/1000073383-removebg-preview.png';
+            } else {
+                notification.querySelector('img').src = 'https://i.ibb.co/qf9BrYC/images-3.png';
+            }
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+        
+        // Show loading overlay
+        function showLoading(text) {
+            loadingText.textContent = text;
+            loadingOverlay.classList.add('active');
+        }
+        
+        // Hide loading overlay
+        function hideLoading() {
+            loadingOverlay.classList.remove('active');
+        }
+        
+        // Show mining start animation
+        function showMiningStartAnimation() {
+            miningStartAnimation.classList.add('show');
+            setTimeout(() => {
+                miningStartAnimation.classList.remove('show');
+            }, 2500);
+        }
+        
+        // Update withdrawal history display
+        function updateHistoryDisplay() {
+            if (withdrawalHistory.length === 0) {
+                historyBody.innerHTML = '';
+                noHistory.style.display = 'block';
+                return;
+            }
+            
+            noHistory.style.display = 'none';
+            historyBody.innerHTML = '';
+            
+            // Sort history by date (newest first)
+            const sortedHistory = [...withdrawalHistory].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            sortedHistory.forEach(transaction => {
+                const row = document.createElement('tr');
+                
+                const date = new Date(transaction.date);
+                const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+                
+                const statusClass = transaction.status === 'completed' ? 'status-completed' : 'status-processing';
+                const statusText = transaction.status === 'completed' ? 'COMPLETED' : 'PROCESSING';
+                
+                row.innerHTML = `
+                    <td>${formattedDate}</td>
+                    <td>${transaction.coin.toUpperCase()}</td>
+                    <td>${transaction.amount}</td>
+                    <td>${transaction.address.substring(0, 12)}...${transaction.address.substring(transaction.address.length - 8)}</td>
+                    <td class="${statusClass}">${statusText}</td>
+                `;
+                
+                historyBody.appendChild(row);
+            });
+        }
+        
+        // Authentication
+        authForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const key = accessKeyInput.value.trim();
+            
+            if (key === 'M30F4S') {
+                verifyBtnText.innerHTML = '<div class="loading-spinner" style="width: 20px; height: 20px; margin-right: 10px;"></div> Verifying...';
+                
+                // Simulate verification process
+                setTimeout(() => {
+                    isVerified = true;
+                    verifyBtnText.textContent = 'Verified ✓';
+                    showNotification('Activation successful! You can now start mining.');
+                    
+                    // Auto switch to dashboard after verification
+                    setTimeout(() => {
+                        authSection.style.display = 'none';
+                        dashboard.style.display = 'block';
+                        updateMinAmount();
+                        updateHistoryDisplay();
+                    }, 1500);
+                }, 2000);
+            } else {
+                showNotification('Invalid activation key. Please try again.', true);
+            }
+        });
+        
+        // Toggle mining
+        toggleMiningBtn.addEventListener('click', function() {
+            if (!isVerified) {
+                showNotification('Please verify your activation key first', true);
+                return;
+            }
+            
+            if (isMining) {
+                stopMining();
+            } else {
+                startMining();
+            }
+        });
+        
+        // Start mining simulation
+        function startMining() {
+            showLoading("Initializing Mining Protocols...");
+            
+            // Simulate mining initialization
+            setTimeout(() => {
+                hideLoading();
+                showMiningStartAnimation();
+                
+                isMining = true;
+                statusIndicator.classList.add('active');
+                miningStatusText.textContent = 'Mining System: ONLINE';
+                toggleMiningBtn.innerHTML = `
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 6h4v12H6zm8 0h4v12h-4z"/>
+                    </svg>
+                    DEACTIVATE MINING
+                `;
+                toggleMiningBtn.classList.add('stop');
+                
+                // Start mining simulation
+                miningInterval = setInterval(function() {
+                    secondsMined++;
+                    updateMiningTime();
+                    
+                    // Update coin amounts
+                    updateCoinAmounts();
+                    
+                    // Update hashrates (random fluctuations)
+                    updateHashrates();
+                    
+                    // Update stats
+                    updateStats();
+                }, 1000);
+            }, 3000);
+        }
+        
+        // Stop mining simulation
+        function stopMining() {
+            isMining = false;
+            statusIndicator.classList.remove('active');
+            miningStatusText.textContent = 'Mining System: OFFLINE';
+            toggleMiningBtn.innerHTML = `
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                ACTIVATE MINING
+            `;
+            toggleMiningBtn.classList.remove('stop');
+            
+            showNotification('Mining protocols deactivated');
+            
+            clearInterval(miningInterval);
+            
+            // Reset hashrates to 0
+            for (let coin in coins) {
+                coins[coin].hashrate = 0;
+            }
+            updateHashrateDisplays();
+        }
+        
+        // Update mining time display
+        function updateMiningTime() {
+            const hours = Math.floor(secondsMined / 3600);
+            const minutes = Math.floor((secondsMined % 3600) / 60);
+            const seconds = secondsMined % 60;
+            
+            document.getElementById('miningTime').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Update coin amounts
+        function updateCoinAmounts() {
+            // BTC
+            coins.btc.amount += 0.00000015 + (Math.random() * 0.0000003);
+            document.getElementById('btcAmount').textContent = coins.btc.amount.toFixed(8);
+            
+            // ETH
+            coins.eth.amount += 0.0000012 + (Math.random() * 0.000002);
+            document.getElementById('ethAmount').textContent = coins.eth.amount.toFixed(8);
+            
+            // TON
+            coins.ton.amount += 0.0012 + (Math.random() * 0.002);
+            document.getElementById('tonAmount').textContent = coins.ton.amount.toFixed(6);
+            
+            // BNB
+            coins.bnb.amount += 0.00012 + (Math.random() * 0.0002);
+            document.getElementById('bnbAmount').textContent = coins.bnb.amount.toFixed(6);
+            
+            // LTC
+            coins.ltc.amount += 0.00012 + (Math.random() * 0.0002);
+            document.getElementById('ltcAmount').textContent = coins.ltc.amount.toFixed(6);
+            
+            // DOGE
+            coins.doge.amount += 1.2 + (Math.random() * 2);
+            document.getElementById('dogeAmount').textContent = coins.doge.amount.toFixed(2);
+        }
+        
+        // Update hashrates with random fluctuations
+        function updateHashrates() {
+            coins.btc.hashrate = 145 + Math.random() * 35;
+            coins.eth.hashrate = 52 + Math.random() * 18;
+            coins.ton.hashrate = 95 + Math.random() * 25;
+            coins.bnb.hashrate = 72 + Math.random() * 18;
+            coins.ltc.hashrate = 580 + Math.random() * 120;
+            coins.doge.hashrate = 950 + Math.random() * 250;
+            
+            updateHashrateDisplays();
+        }
+        
+        // Update hashrate displays
+        function updateHashrateDisplays() {
+            document.getElementById('btcHashrate').textContent = `${coins.btc.hashrate.toFixed(2)} TH/s`;
+            document.getElementById('ethHashrate').textContent = `${coins.eth.hashrate.toFixed(2)} MH/s`;
+            document.getElementById('tonHashrate').textContent = `${coins.ton.hashrate.toFixed(2)} MH/s`;
+            document.getElementById('bnbHashrate').textContent = `${coins.bnb.hashrate.toFixed(2)} MH/s`;
+            document.getElementById('ltcHashrate').textContent = `${coins.ltc.hashrate.toFixed(2)} GH/s`;
+            document.getElementById('dogeHashrate').textContent = `${coins.doge.hashrate.toFixed(2)} MH/s`;
+        }
+        
+        // Update stats
+        function updateStats() {
+            // Calculate total mined in BTC equivalent (simplified)
+            const total = coins.btc.amount + 
+                         coins.eth.amount * 0.055 + 
+                         coins.ton.amount * 0.00025 + 
+                         coins.bnb.amount * 0.0075 + 
+                         coins.ltc.amount * 0.0028 + 
+                         coins.doge.amount * 0.0000065;
+            
+            document.getElementById('totalMined').textContent = total.toFixed(8);
+            
+            // Calculate total hashrate
+            const totalHash = coins.btc.hashrate + 
+                             coins.eth.hashrate * 0.001 + 
+                             coins.ton.hashrate * 0.001 + 
+                             coins.bnb.hashrate * 0.001 + 
+                             coins.ltc.hashrate * 0.000001 + 
+                             coins.doge.hashrate * 0.001;
+            
+            document.getElementById('totalHashrate').textContent = `${totalHash.toFixed(2)} PH/s`;
+        }
+        
+        // Withdraw form submission
+        document.getElementById('withdrawForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const coin = document.getElementById('withdrawCoin').value;
+            const address = document.getElementById('withdrawAddress').value;
+            const amount = parseFloat(document.getElementById('withdrawAmount').value);
+            const transactionId = document.getElementById('transactionId').value.trim();
+            
+            // Check minimum withdrawal amounts
+            const minAmounts = {
+                btc: 0.01,
+                eth: 1,
+                ton: 20,
+                bnb: 0.19,
+                ltc: 0.1,
+                doge: 900
+            };
+            
+            if (amount < minAmounts[coin]) {
+                showNotification(`Transfer amount below minimum for ${coin.toUpperCase()}. Minimum: ${minAmounts[coin]}`, true);
+                return;
+            }
+            
+            if (!transactionId) {
+                showNotification('Please enter Transaction ID from fee payment', true);
+                return;
+            }
+            
+            if (amount <= coins[coin].amount) {
+                // Show processing notification
+                showNotification(`Withdrawal submitted! Processing in 2-3 minutes...`);
+                
+                // Hide and reset payment not received message
+                paymentNotReceived.style.display = 'none';
+                
+                // Show payment not received message after 3 minutes
+                setTimeout(() => {
+                    paymentNotReceived.style.display = 'block';
+                }, 3 * 60 * 1000);
+                
+                // Deduct amount from balance
+                coins[coin].amount -= amount;
+                updateCoinDisplay(coin);
+                updateStats();
+                
+                // Create withdrawal transaction
+                const transaction = {
+                    id: Date.now().toString(),
+                    date: new Date().toISOString(),
+                    coin: coin,
+                    amount: amount,
+                    address: address,
+                    transactionId: transactionId,
+                    status: 'processing'
+                };
+                
+                // Add to history
+                withdrawalHistory.push(transaction);
+                localStorage.setItem('withdrawalHistory', JSON.stringify(withdrawalHistory));
+                
+                // Update display
+                updateHistoryDisplay();
+                
+                // Process completion in 2-3 minutes
+                setTimeout(() => {
+                    const transactionIndex = withdrawalHistory.findIndex(t => t.id === transaction.id);
+                    if (transactionIndex !== -1) {
+                        withdrawalHistory[transactionIndex].status = 'completed';
+                        localStorage.setItem('withdrawalHistory', JSON.stringify(withdrawalHistory));
+                        updateHistoryDisplay();
+                        showNotification(`⚡ Withdrawal processed: ${amount} ${coin.toUpperCase()} transferred!`);
+                    }
+                }, 2.5 * 60 * 1000); // 2.5 minutes for demo
+                
+                // Reset form
+                this.reset();
+                updateMinAmount();
+            } else {
+                showNotification('Insufficient balance for this transfer', true);
+            }
+        });
+        
+        // Update coin display
+        function updateCoinDisplay(coin) {
+            switch(coin) {
+                case 'btc':
+                    document.getElementById('btcAmount').textContent = coins.btc.amount.toFixed(8);
+                    break;
+                case 'eth':
+                    document.getElementById('ethAmount').textContent = coins.eth.amount.toFixed(8);
+                    break;
+                case 'ton':
+                    document.getElementById('tonAmount').textContent = coins.ton.amount.toFixed(6);
+                    break;
+                case 'bnb':
+                    document.getElementById('bnbAmount').textContent = coins.bnb.amount.toFixed(6);
+                    break;
+                case 'ltc':
+                    document.getElementById('ltcAmount').textContent = coins.ltc.amount.toFixed(6);
+                    break;
+                case 'doge':
+                    document.getElementById('dogeAmount').textContent = coins.doge.amount.toFixed(2);
+                    break;
+            }
+        }
+        
+        // Initialize with some values for demo
+        window.addEventListener('load', function() {
+            // Set initial values for demo
+            coins.btc.amount = 0.02345;
+            coins.eth.amount = 2.34567;
+            coins.ton.amount = 45.67890;
+            coins.bnb.amount = 0.456789;
+            coins.ltc.amount = 1.23456;
+            coins.doge.amount = 1500.78;
+            
+            document.getElementById('btcAmount').textContent = coins.btc.amount.toFixed(8);
+            document.getElementById('ethAmount').textContent = coins.eth.amount.toFixed(8);
+            document.getElementById('tonAmount').textContent = coins.ton.amount.toFixed(6);
+            document.getElementById('bnbAmount').textContent = coins.bnb.amount.toFixed(6);
+            document.getElementById('ltcAmount').textContent = coins.ltc.amount.toFixed(6);
+            document.getElementById('dogeAmount').textContent = coins.doge.amount.toFixed(2);
+            
+            updateStats();
+            
+            // Initialize payment methods
+            initializePaymentMethods();
+            
+            // Initialize withdrawal history display
+            updateHistoryDisplay();
+        });
+    </script>
+</body>
+</html>
